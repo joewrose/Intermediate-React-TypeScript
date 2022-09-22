@@ -1,5 +1,4 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import { render } from "react-dom";
 import SearchParams from "./SearchParams";
 
 const App = () => {
@@ -11,4 +10,4 @@ const App = () => {
   );
 };
 
-ReactDOM.render(React.createElement(App), document.getElementById("root"));
+render(<App />, document.getElementById("root"));
