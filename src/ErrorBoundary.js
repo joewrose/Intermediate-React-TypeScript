@@ -5,10 +5,13 @@ import { Link, Navigate } from "react-router-dom";
 class ErrorBoundary extends Component {
   state = { hasError: false, redirect: false };
 
+  // Called when an error occurs. Effectively, the object which
+  // is returned is passed directly into a setState call.
   static getDerivedStateFromError() {
     return { hasError: true };
   }
 
+  // All this does is report the error to the log.
   componentDidCatch(error, info) {
     console.error(error, info);
   }
@@ -19,6 +22,7 @@ class ErrorBoundary extends Component {
     }
   }
 
+  // Every time you run setState, the render function will be called
   render() {
     if (this.state.redirect) {
       return <Navigate to="/" />;
