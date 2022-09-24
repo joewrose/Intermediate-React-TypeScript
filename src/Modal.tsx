@@ -17,7 +17,9 @@ const Modal: FunctionComponent = ({ children }) => {
   useEffect(() => {
     const modalRoot = document.getElementById("modal");
     // We can't call appendChild on modalRoot unless we assure TypeScript that
-    // it won't be null.
+    // it won't be null. (You can check what datatype a function returns and
+    // therefore what type your variable should be by mousing over the element
+    // in VSCode. )
     if (!modalRoot || !elRef.current) {
       return;
     }
