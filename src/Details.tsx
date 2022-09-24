@@ -4,19 +4,47 @@ import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 import ThemeContext from "./ThemeContext";
 import Modal from "./Modal";
+import { PetAPIResponse, Pet, Animal } from "./APIResponseTypes";
 
-class Details extends Component {
-  state = { loading: true, showModal: false };
+// Since we expect the component to get a props object, we have to
+// define this. But we can't be sure if the API is going to return an ID
+// or not, so we put a ? next to the id type to denote this.
+
+interface Props {
+  params: {
+    id?: string;
+  };
+}
+
+class Details extends Component<Props> {
+  // We can get rid of many of the typescript related errors we originally got
+  // when converting this page by setting the default values for all our
+  // variables. TypeScript is clever enough that it can work out our variable
+  // types from this alone.
+  state = {
+    loading: true,
+    showModal: false,
+    animal: "" as Animal,
+    breed: "",
+    city: "",
+    state: "",
+    description: "",
+    name: "",
+    images: [] as string[],
+  };
 
   async componentDidMount() {
     const res = await fetch(
       `http://pets-v2.dev-apis.com/pets?id=${this.props.params.id}`
     );
-    const json = await res.json();
+    // Since the res.json returns an 'any' type, we should type is to
+    // be a PetAPIResponse object.
+    const json = (await res.json()) as PetAPIResponse;
     this.setState(Object.assign({ loading: false }, json.pets[0]));
   }
 
   toggleModal = () => this.setState({ showModal: !this.state.showModal });
+  adopt = () => (window.location.href = "http://bit.ly/pet-adopt");
 
   render() {
     if (this.state.loading) {
@@ -61,7 +89,7 @@ class Details extends Component {
 }
 
 const WrappedDetails = () => {
-  const params = useParams();
+  const params = useParams<{ id: string }>();
   return (
     <ErrorBoundary>
       <Details params={params} />;
