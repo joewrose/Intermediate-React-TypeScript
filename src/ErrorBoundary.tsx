@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, ErrorInfo } from "react";
 // Error Boundaries must be class components.
 import { Link, Navigate } from "react-router-dom";
 
@@ -12,7 +12,7 @@ class ErrorBoundary extends Component {
   }
 
   // All this does is report the error to the log.
-  componentDidCatch(error, info) {
+  componentDidCatch(error: Error, info: ErrorInfo) {
     console.error(error, info);
   }
 
