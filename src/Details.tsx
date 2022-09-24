@@ -4,7 +4,7 @@ import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 import ThemeContext from "./ThemeContext";
 import Modal from "./Modal";
-import { PetAPIResponse, Pet, Animal } from "./APIResponseTypes";
+import { PetAPIResponse, Animal } from "./APIResponseTypes";
 
 // Since we expect the component to get a props object, we have to
 // define this. But we can't be sure if the API is going to return an ID
@@ -34,6 +34,10 @@ class Details extends Component<Props> {
   };
 
   async componentDidMount() {
+    if (!this.props.params.id) {
+      return;
+    }
+
     const res = await fetch(
       `http://pets-v2.dev-apis.com/pets?id=${this.props.params.id}`
     );
