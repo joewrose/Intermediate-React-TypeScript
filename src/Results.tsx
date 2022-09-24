@@ -1,8 +1,10 @@
+import { FunctionComponent } from "react";
+import { Pet as PetType } from "./APIResponseTypes";
 import Pet from "./Pet";
 
 // Uses a turnary, these are generally used when we unable to use
 // if-else statements (A.K.A. when we are writing an expression)
-const Results = ({ pets }) => {
+const Results: FunctionComponent<{ pets: PetType[] }> = ({ pets }) => {
   return (
     <div className="search">
       {!pets.length ? (
