@@ -5,6 +5,9 @@ import { createContext } from "react";
 // Here, we are trying to mimic a useState hook. This empty
 // function will only be used if we call the context without
 // setting the context.,
-const ThemeContext = createContext(["green", () => {}]);
+const ThemeContext = createContext<[string, (theme: string) => void]>([
+  "green",
+  () => {},
+]);
 
 export default ThemeContext;
