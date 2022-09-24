@@ -1,6 +1,10 @@
 import { Component } from "react";
 
-class Carousel extends Component {
+interface Props {
+  images: string[];
+}
+
+class Carousel extends Component<Props> {
   state = {
     active: 0,
   };
@@ -19,10 +23,15 @@ class Carousel extends Component {
   // to the specific piece of metadata
 
   // We've used a unary '+' to convert our data to a number
-  handleIndexClick = (event) => {
-    this.setState({
-      active: +event.target.dataset.index,
-    });
+  handleIndexClick = (event: React.MouseEvent<HTMLElement>) => {
+    if (!(event.target instanceof HTMLElement)) {
+      return;
+    }
+    if (event.target.dataset.index) {
+      this.setState({
+        active: +event.target.dataset.index,
+      });
+    }
   };
 
   // This function gives an accessibility error, the reason we are
